@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/32c384e39d.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Music Player</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <div class="background">
+      <img
+        src="/assets/drive-breakbeat.webp"
+        alt="Drive Breakbeat"
+        id="bg-img"
+      />
+    </div>
+
+    <div class="container">
+      <div class="player-img">
+        <img
+          src="/assets/drive-breakbeat.webp"
+          alt="Drive Breakbeat"
+          class="active"
+          id="cover"
+        />
+      </div>
+
+      <h2 id="music-title">Music Title</h2>
+      <h3 id="music-artist">Music Artist</h3>
+
+      <div class="player-progress" id="player-progress">
+        <div class="progress" id="progress"></div>
+        <div class="music-duration">
+          <span id="current-time">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+
+      <div class="sound-container">
+        <i class="fa-solid fa-volume-low small-icon" id="lower-volume"></i>
+        <div class="player-sound" id="player-sound">
+          <div class="sound" id="sound"></div>
+        </div>
+        <i class="fa-solid fa-volume-high small-icon" id="raise-volume"></i>
+      </div>
+
+      <div class="player-controls">
+        <i class="fa-solid fa-shuffle" title="Shuffle" id="shuffle"></i>
+        <i class="fa-solid fa-backward-step" title="Previous" id="prev"></i>
+        <i
+          class="fa-solid fa-circle-play play-button"
+          title="Play"
+          id="play"
+        ></i>
+        <i class="fa-solid fa-forward-step" title="Next" id="next"></i>
+        <i class="fa-solid fa-repeat" title="Repeat" id="repeat"></i>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

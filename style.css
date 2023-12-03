@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
+
+* {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.75rem;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  position: fixed;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: -1;
+}
+
+.background img {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-width: 50%;
+  min-height: 50%;
+  filter: blur(1rem);
+  -webkit-filter: blur(4rem);
+  transform: scale(1.1);
+}
+
+.container {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8e8e888;
+  padding: 1rem;
+  width: 25rem;
+  height: 100vh;
+  border-radius: 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
+}
+
+.player-img {
+  width: 20rem;
+  height: 20rem;
+  position: relative;
+  margin-top: -5rem;
+  background: #fff;
+  border-radius: 1.25rem;
+}
+
+.player-img img {
+  object-fit: cover;
+  border-radius: 1.25rem;
+  height: 0;
+  width: 0;
+  opacity: 0;
+  box-shadow: 0 0.25rem 0.5rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+.player-img img.active {
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s;
+  opacity: 1;
+}
+
+.player-img img:active {
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s;
+  opacity: 1;
+}
+
+h2 {
+  user-select: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+h3 {
+  user-select: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.player-progress {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 0.5rem;
+  width: 100%;
+}
+
+.progress {
+  background-color: #212121;
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+.sound-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 50%;
+}
+
+.player-sound {
+  flex-grow: 1;
+  gap: 1rem;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 0.5rem;
+}
+
+.sound {
+  background-color: #212121;
+  border-radius: 0.5rem;
+  height: 100%;
+  width: 60%;
+  transition: width 0.1s linear;
+}
+
+.small-icon {
+  font-size: 1rem !important;
+}
+
+.music-duration {
+  position: relative;
+  top: -1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.player-controls {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.fa-solid {
+  font-size: 2.5rem;
+  color: #212121;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.fa-solid:hover {
+  color: #000;
+  scale: 1.1;
+}
+
+.fa-shuffle {
+  opacity: 0.25;
+}
+
+.fa-shuffle.active {
+  opacity: 1;
+}
+
+.fa-repeat {
+  opacity: 0.25;
+}
+
+.fa-repeat.active {
+  opacity: 1;
+}
+
+.play-button {
+  font-size: 4rem;
+  position: relative;
+  top: 0.25rem;
+}
+
+@media screen and (min-width: 30rem) {
+  .container {
+    border-radius: 1.25rem;
+    height: 100%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+}
