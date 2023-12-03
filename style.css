@@ -116,7 +116,7 @@ h3 {
 }
 
 .sound-container {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 1rem;
   width: 50%;
@@ -193,10 +193,14 @@ h3 {
   top: 0.25rem;
 }
 
-@media screen and (min-width: 30rem) {
+@media screen and (min-width: 40rem) {
   .container {
     border-radius: 1.25rem;
     height: 100%;
+  }
+
+  .sound-container {
+    display: flex;
   }
 
   h2 {
