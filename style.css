@@ -11,7 +11,9 @@ html {
 body {
   font-family: "Ubuntu", sans-serif;
   font-size: 0.75rem;
-  min-height: 100vh;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,7 +51,7 @@ body {
   background-color: #88888888;
   padding: 1rem;
   width: 25rem;
-  height: 100vh;
+  height: 100%;
   border-radius: 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
   transition: all 0.5s ease;
@@ -196,7 +198,7 @@ h3 {
 @media screen and (min-width: 40rem) {
   .container {
     border-radius: 1.25rem;
-    height: 100%;
+    height: auto;
   }
 
   .sound-container {
