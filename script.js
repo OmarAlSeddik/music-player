@@ -20,6 +20,7 @@ const music = new Audio();
 music.volume = 0.6;
 let isShuffle = false;
 let isRepeat = false;
+let isPlaying = false;
 
 const tracksDefault = [
   {
@@ -85,9 +86,54 @@ const tracksDefault = [
 ];
 
 let tracks = [...tracksDefault];
+class Node {
+  constructor(path, displayName, cover, artist) {
+    this.path = path;
+    this.displayName = displayName;
+    this.cover = cover;
+    this.artist = artist;
+    this.next = null;
+    this.prev = null;
+  }
+}
 
-let musicIndex = 0;
-let isPlaying = false;
+class Queue {
+  constructor() {
+    this.head = null;
+    this.tail = null;
+  }
+
+  enqueue(path, displayName, cover, artist) {
+    const newNode = new Node(path, displayName, cover, artist);
+
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = newNode;
+      return;
+    }
+
+    newNode.prev = this.tail;
+    this.tail.next = newNode;
+    this.tail = newNode;
+  }
+
+  empty() {
+    this.head = null;
+    this.tail = null;
+  }
+}
+
+const trackList = new Queue();
+
+const updateTrackList = () => {
+  trackList.empty();
+  tracks.forEach((track) =>
+    trackList.enqueue(track.path, track.displayName, track.cover, track.artist)
+  );
+};
+
+updateTrackList();
+let currentTrack = trackList.head;
 
 const togglePlay = () => {
   if (isPlaying) pauseMusic();
@@ -108,17 +154,23 @@ const pauseMusic = () => {
   music.pause();
 };
 
-const loadMusic = (track) => {
-  music.src = track.path;
-  title.textContent = track.displayName;
-  artist.textContent = track.artist;
-  image.src = track.cover;
-  background.src = track.cover;
+const loadMusic = () => {
+  music.src = currentTrack.path;
+  title.textContent = currentTrack.displayName;
+  artist.textContent = currentTrack.artist;
+  image.src = currentTrack.cover;
+  background.src = currentTrack.cover;
 };
 
-const changeMusic = (direction) => {
-  musicIndex = (musicIndex + direction + tracks.length) % tracks.length;
-  loadMusic(tracks[musicIndex]);
+const changeTrack = (direction) => {
+  if (direction === 1) {
+    if (currentTrack.next) currentTrack = currentTrack.next;
+    else currentTrack = trackList.head;
+  } else if (direction === -1) {
+    if (currentTrack.prev) currentTrack = currentTrack.prev;
+    else currentTrack = trackList.tail;
+  }
+  loadMusic();
   playMusic();
 };
 
@@ -155,9 +207,7 @@ const updateVolumeBar = () => {
 };
 
 const changeVolume = (value) => {
-  if (music.volume < 0.1 && value < 0) music.volume = 0;
-  else if (music.volume > 0.9 && value > 0) music.volume = 1;
-  else music.volume += value;
+  music.volume = Math.min(1, Math.max(0, music.volume + value));
   updateVolumeBar();
 };
 
@@ -165,17 +215,13 @@ const shuffleMusic = () => {
   isShuffle = !isShuffle;
   shuffle.classList.toggle("active", isShuffle);
 
-  if (isShuffle) {
-    tracks.sort(() => Math.random() - 0.5);
-    musicIndex = 0;
-    loadMusic(tracks[musicIndex]);
-    playMusic();
-  } else {
-    tracks = [...tracksDefault];
-    musicIndex = 0;
-    loadMusic(tracks[musicIndex]);
-    playMusic();
-  }
+  if (isShuffle) tracks.sort(() => Math.random() - 0.5);
+  else tracks = [...tracksDefault];
+
+  updateTrackList();
+  currentTrack = trackList.head;
+  loadMusic();
+  playMusic();
 };
 
 const repeatMusic = () => {
@@ -184,10 +230,10 @@ const repeatMusic = () => {
 };
 
 playButton.addEventListener("click", togglePlay);
-prevButton.addEventListener("click", () => changeMusic(-1));
-nextButton.addEventListener("click", () => changeMusic(1));
+prevButton.addEventListener("click", () => changeTrack(-1));
+nextButton.addEventListener("click", () => changeTrack(1));
 music.addEventListener("ended", () =>
-  isRepeat ? changeMusic(0) : changeMusic(1)
+  isRepeat ? changeTrack(0) : changeTrack(1)
 );
 music.addEventListener("timeupdate", updateProgressBar);
 music.addEventListener("volumechange", updateVolumeBar);
@@ -198,4 +244,4 @@ lowerVolume.addEventListener("click", () => changeVolume(-0.1));
 shuffle.addEventListener("click", shuffleMusic);
 repeat.addEventListener("click", repeatMusic);
 
-loadMusic(tracks[musicIndex]);
+loadMusic();
